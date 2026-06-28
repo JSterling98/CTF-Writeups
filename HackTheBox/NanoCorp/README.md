@@ -1,6 +1,3 @@
-Aquí tienes el writeup completo de NanoCorp en formato Markdown listo para copiar y pegar directamente en tu archivo `HackTheBox/NanoCorp/README.md` en GitHub:
-
----
 
 ```markdown
 # Writeup: NanoCorp (Hack The Box — Retirada)
