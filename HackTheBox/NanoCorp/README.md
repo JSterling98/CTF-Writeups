@@ -550,5 +550,5 @@ NanoCorp es una máquina **Hard** que combina múltiples técnicas de ataque en 
 
 6. **Un solo listener es suficiente para RunasCs**  
    No necesitas una shell intermedia. `RunasCs` puede ejecutar directamente el script de escalada en el contexto del usuario objetivo — la shell SYSTEM llega directamente a tu listener.
-```
+
 
