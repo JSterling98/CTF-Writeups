@@ -1,5 +1,5 @@
 
-```markdown
+
 # Writeup: NanoCorp (Hack The Box — Retirada)
 
 NanoCorp es una máquina **Hard** que simula el entorno de una pequeña corporación con múltiples cuentas de servicio, permisos mal configurados y una herramienta de monitorización empresarial explotable. El objetivo es pasar de un punto de entrada inicial (obteniendo un hash NTLMv2) hasta el compromiso total del dominio y la obtención de la flag de SYSTEM.
@@ -549,7 +549,5 @@ NanoCorp es una máquina **Hard** que combina múltiples técnicas de ataque en 
 
 6. **Un solo listener es suficiente para RunasCs**  
    No necesitas una shell intermedia. `RunasCs` puede ejecutar directamente el script de escalada en el contexto del usuario objetivo — la shell SYSTEM llega directamente a tu listener.
-```
 
----
 
