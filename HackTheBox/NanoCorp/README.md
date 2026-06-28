@@ -252,7 +252,11 @@ LDAP        10.129.243.199  389    DC01             Compressing output into /hom
 
 Importé el archivo ZIP en BloodHound. Tras analizar el grafo, encontré una ruta de escalada crítica:
 
-![BloodHound - Ruta de escalada](./assets/bloodhound-path.png)
+
+![BloodHound - web_svc a IT_SUPPORT](./assets/bloodhound-addself.png)
+
+![BloodHound - IT_SUPPORT a monitoring_svc](./assets/bloodhound-forcechange.png)
+
 
 - El usuario **`web_svc`** tiene el permiso **`AddSelf`** sobre el grupo **`IT_SUPPORT`**. Esto significa que `web_svc` puede añadirse a sí mismo como miembro de ese grupo.
 - El grupo **`IT_SUPPORT`** tiene el permiso **`ForceChangePassword`** sobre la cuenta **`monitoring_svc`**.
@@ -260,9 +264,8 @@ Importé el archivo ZIP en BloodHound. Tras analizar el grafo, encontré una rut
 
 Esta cadena de permisos nos permite escalar de `web_svc` a `monitoring_svc` y, desde ahí, obtener acceso al sistema.
 
-![BloodHound - web_svc a IT_SUPPORT](./assets/bloodhound-addself.png)
 
-![BloodHound - IT_SUPPORT a monitoring_svc](./assets/bloodhound-forcechange.png)
+![BloodHound - Ruta de escalada](./assets/bloodhound-path.png)
 
 ### La cuenta `monitoring_svc`: contexto y limitaciones
 
