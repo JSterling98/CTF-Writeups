@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # Writeup: NanoCorp (Hack The Box — Retirada)
 
 NanoCorp es una máquina **Hard** que simula el entorno de una pequeña corporación con múltiples cuentas de servicio, permisos mal configurados y una herramienta de monitorización empresarial explotable. El objetivo es pasar de un punto de entrada inicial (obteniendo un hash NTLMv2) hasta el compromiso total del dominio y la obtención de la flag de SYSTEM.
