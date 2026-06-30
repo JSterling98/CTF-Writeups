@@ -552,7 +552,7 @@ Nexus es una máquina **Media** que combina:
 
 2. **La reutilización de contraseñas** entre servicios facilita la escalada de privilegios.
 
-3. **Los timers systemd que ejecutan scripts como root** deben ser auditados rigurosamente. Cualquier path traversal en el script puede comprometer todo el sistema.
+3. **Los timers systemd que ejecutan scripts como root** deben ser auditados rigurosamente. Cualquier vulnerabilidad en el script puede comprometer todo el sistema.
 
 4. **Las vulnerabilidades de subida de archivos** (CWE-434) siguen siendo un vector crítico en aplicaciones web. Validar extensiones y tipos MIME es fundamental.
 
