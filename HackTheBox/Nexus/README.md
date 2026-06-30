@@ -557,4 +557,4 @@ Nexus es una máquina **Media** que combina:
 4. **Las vulnerabilidades de subida de archivos** (CWE-434) siguen siendo un vector crítico en aplicaciones web. Validar extensiones y tipos MIME es fundamental.
 
 5. **El principio de mínimo privilegio** debería aplicarse: los scripts no deberían ejecutarse como root si no es estrictamente necesario.
-```
+
