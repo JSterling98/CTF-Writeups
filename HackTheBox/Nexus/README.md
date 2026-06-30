@@ -536,7 +536,7 @@ Donde `stage_path` es `/home/git/template-staging` y `filepath` proviene del rep
 
 ## Conclusión
 
-Nexus es una máquina **Media** que combina:
+Nexus es una máquina **Facil** que combina:
 
 1. **Enumeración de subdominios** para descubrir `git.nexus.htb` y `billing.nexus.htb`.
 2. **Exposición de credenciales** en un repositorio Gitea y archivos `.env` y `docker-compose.yml`.
