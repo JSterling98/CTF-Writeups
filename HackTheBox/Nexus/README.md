@@ -548,13 +548,17 @@ Nexus es una máquina **Media** que combina:
 
 ## Lecciones aprendidas
 
-1. **Los archivos .env y docker-compose.yml nunca deben estar expuestos** en repositorios públicos o accesibles.
+1. **El software desactualizado es un vector de ataque crítico**  
+   La versión 2.2.0 de Krayin CRM contenía una vulnerabilidad crítica (CVE-2026-38526) que ya estaba parchada en versiones posteriores. Mantener las aplicaciones actualizadas con los últimos parches de seguridad reduce drásticamente la superficie de ataque.
 
-2. **La reutilización de contraseñas** entre servicios facilita la escalada de privilegios.
+2. **Los archivos .env y docker-compose.yml nunca deben estar expuestos**  
+   Estos archivos contienen credenciales y configuraciones sensibles. Su exposición en repositorios accesibles facilita el acceso no autorizado.
 
-3. **Los timers systemd que ejecutan scripts como root** deben ser auditados rigurosamente. Cualquier vulnerabilidad en el script puede comprometer todo el sistema.
+3. **La reutilización de contraseñas** entre servicios (Gitea, CRM, SSH) permite escalar privilegios de forma sencilla.
 
-4. **Las vulnerabilidades de subida de archivos** (CWE-434) siguen siendo un vector crítico en aplicaciones web. Validar extensiones y tipos MIME es fundamental.
+4. **Los timers systemd que ejecutan scripts como root** deben ser auditados rigurosamente. Cualquier path traversal en el script puede comprometer todo el sistema.
 
-5. **El principio de mínimo privilegio** debería aplicarse: los scripts no deberían ejecutarse como root si no es estrictamente necesario.
+5. **Las vulnerabilidades de subida de archivos (CWE-434)** siguen siendo un vector crítico en aplicaciones web. Validar extensiones y tipos MIME es fundamental.
+
+6. **El principio de mínimo privilegio** debería aplicarse: los scripts no deberían ejecutarse como root si no es estrictamente necesario.
 
