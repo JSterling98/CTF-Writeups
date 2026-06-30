@@ -512,7 +512,6 @@ Donde `stage_path` es `/home/git/template-staging` y `filepath` proviene del rep
 
    ```bash
    cd /tmp
-   rm -rf rce
    mkdir rce && cd rce
    git init
    python3 /tmp/build.py
