@@ -1,7 +1,7 @@
 
 # Writeup: Nexus (Hack The Box — Retirada)
 
-Nexus es una máquina **Facil** que simula un entorno corporativo con múltiples servicios expuestos: un CRM (Krayin), un repositorio Gitea y un panel de administración. El recorrido comienza con la enumeración de subdominios y la explotación de una vulnerabilidad crítica de subida de archivos en Krayin CRM, seguido de una escalada de privilegios mediante el abuso de un timer systemd y un script vulnerable a path traversal.
+Nexus es una máquina **Fácil** que simula un entorno corporativo con múltiples servicios expuestos: un CRM (Krayin), un repositorio Gitea y un panel de administración. El recorrido comienza con la enumeración de subdominios y la explotación de una vulnerabilidad crítica de subida de archivos en Krayin CRM, seguido de una escalada de privilegios mediante el abuso de un timer systemd y un script vulnerable a path traversal.
 
 
 
@@ -536,7 +536,7 @@ Donde `stage_path` es `/home/git/template-staging` y `filepath` proviene del rep
 
 ## Conclusión
 
-Nexus es una máquina **Facil** que combina:
+Nexus es una máquina **Fácil** que combina:
 
 1. **Enumeración de subdominios** para descubrir `git.nexus.htb` y `billing.nexus.htb`.
 2. **Exposición de credenciales** en un repositorio Gitea y archivos `.env` y `docker-compose.yml`.
