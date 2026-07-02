@@ -12,7 +12,7 @@ Lanzamos un escaneo completo de puertos con Nmap:
 
 ```bash
 sudo nmap -sS --min-rate 500 -p- -n -Pn -vv 10.129.44.96 -oG allPorts
-
+```
 
 El escaneo reveló dos puertos abiertos:
 
