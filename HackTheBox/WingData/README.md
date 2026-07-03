@@ -327,7 +327,6 @@ WingData es una máquina **Fácil** que combina:
 
 ## Lecciones aprendidas
 
-## Lecciones aprendidas
 
 1. **El software desactualizado es un vector de ataque crítico**  
    La versión 7.4.3 de Wing FTP Server contenía una vulnerabilidad crítica (CVE-2025-47812) que ya estaba parchada en versiones posteriores. Mantener las aplicaciones actualizadas con los últimos parches de seguridad es fundamental para reducir la superficie de ataque.
@@ -350,4 +349,4 @@ WingData es una máquina **Fácil** que combina:
 
 5. **Las vulnerabilidades en módulos estándar de Python pueden comprometer sistemas enteros**  
    El CVE-2025-4330 afecta a `tarfile`, un módulo ampliamente utilizado. Aunque Python 3.12.3 era relativamente reciente, esta vulnerabilidad demuestra que incluso las versiones modernas pueden contener fallos críticos. Es crucial mantener actualizado el intérprete y sus bibliotecas, y estar atento a los avisos de seguridad de la comunidad (CVEs, boletines oficiales, etc.), especialmente cuando se ejecutan scripts con privilegios elevados.
-```
+
