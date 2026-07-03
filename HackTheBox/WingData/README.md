@@ -327,21 +327,27 @@ WingData es una máquina **Fácil** que combina:
 
 ## Lecciones aprendidas
 
+## Lecciones aprendidas
+
 1. **El software desactualizado es un vector de ataque crítico**  
-   La versión 7.4.3 de Wing FTP Server contenía una vulnerabilidad crítica (CVE-2025-47812) que ya estaba parchada en versiones posteriores. Mantener las aplicaciones actualizadas es fundamental.
+   La versión 7.4.3 de Wing FTP Server contenía una vulnerabilidad crítica (CVE-2025-47812) que ya estaba parchada en versiones posteriores. Mantener las aplicaciones actualizadas con los últimos parches de seguridad es fundamental para reducir la superficie de ataque.
 
 2. **Los proxies inversos no añaden seguridad por sí mismos**  
-   Aunque el servicio se exponía a través de Apache, la aplicación subyacente seguía siendo vulnerable. La capa de proxy no mitiga fallos en el software.
+   Aunque el servicio se exponía a través de Apache, la aplicación subyacente seguía siendo vulnerable. La capa de proxy no mitiga fallos en el software; la seguridad debe implementarse en la aplicación y en su configuración.
 
-3. **Los archivos de configuración almacenan información sensible**  
-   Wing FTP Server guarda hashes de contraseñas en texto plano en archivos XML. Estos archivos deben estar adecuadamente protegidos.
+3. **Las contraseñas débiles y comunes son un riesgo, incluso si se almacenan como hashes**  
+   El hash de `wacky` fue crackeado porque la contraseña original (`!#7Blushing^*Bride5`) estaba en el diccionario `rockyou.txt`. Esto demuestra la importancia de usar contraseñas largas, complejas y no incluidas en listas comunes. Además, los archivos de configuración que contienen estos hashes deben tener permisos restrictivos (por ejemplo, `600`) y no ser legibles por usuarios no autorizados.
 
-4. **Los permisos sudo mal configurados permiten escalada de privilegios**  
-   El uso del comodín `*` en sudoers sin restricciones adecuadas puede permitir la ejecución de comandos maliciosos.
+4. **Las protecciones en el código no sustituyen a tener las librerías actualizadas**  
+   El script `restore_backup_clients.py` implementaba múltiples medidas de seguridad para prevenir escaladas de privilegios:
+   
+   - Validación estricta del nombre del backup (`backup_\d+\.tar`), impidiendo nombres arbitrarios.
+   - Validación del directorio de restauración (`restore_[a-zA-Z0-9_]{1,24}`), limitando caracteres y longitud.
+   - Verificación de que el archivo de backup exista en un directorio específico (`/opt/backup_clients/backups/`).
+   - Uso de `filter='data'` en `tarfile.extractall()`, diseñado para prevenir extracciones inseguras.
+   
+   A pesar de todas estas validaciones, la vulnerabilidad **CVE-2025-4330** en el módulo `tarfile` permitió eludir el filtro `filter='data'` mediante una cadena de enlaces simbólicos que supera `PATH_MAX`. Esto demuestra que, por muy robustas que sean las validaciones a nivel de aplicación, **las librerías subyacentes también deben estar actualizadas y libres de vulnerabilidades conocidas**. Un solo fallo en una dependencia puede anular todas las protecciones implementadas en el código.
 
-5. **Las vulnerabilidades en módulos estándar de Python son peligrosas**  
-   CVE-2025-4330 afecta a `tarfile`, un módulo comúnmente utilizado. Las versiones modernas de Python no son inmunes a fallos de seguridad.
-
-6. **Los directorios escribibles por el usuario combinados con ejecución privilegiada son críticos**  
-   El usuario `wacky` podía escribir en `/opt/backup_clients/backups/`, lo que permitió colocar el tarball malicioso y desencadenar la explotación.
+5. **Las vulnerabilidades en módulos estándar de Python pueden comprometer sistemas enteros**  
+   El CVE-2025-4330 afecta a `tarfile`, un módulo ampliamente utilizado. Aunque Python 3.12.3 era relativamente reciente, esta vulnerabilidad demuestra que incluso las versiones modernas pueden contener fallos críticos. Es crucial mantener actualizado el intérprete y sus bibliotecas, y estar atento a los avisos de seguridad de la comunidad (CVEs, boletines oficiales, etc.), especialmente cuando se ejecutan scripts con privilegios elevados.
 ```
