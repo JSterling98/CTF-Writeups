@@ -1,7 +1,7 @@
 
 # Writeup: ShadowGate (HackSmarter — Internal AD Pentest)
 
-ShadowGate es una máquina **Media** que simula un entorno Active Directory recientemente consolidado tras una adquisición corporativa. El recorrido comienza con la enumeración de usuarios mediante RPC, seguida de un ataque **AS-REP Roasting** que permite obtener credenciales para el usuario `jtrueblood`. A partir de ahí, se explota una configuración insegura de Active Directory Certificate Services (AD CS) con **Certipy Shadow Credentials** para obtener el hash NT del usuario `bbrown`. Posteriormente, se utiliza **PetitPotam** para forzar una autenticación NTLM y realizar un **NTLM Relay** hacia AD CS, obteniendo un certificado del controlador de dominio. Finalmente, se extrae el hash NT del **KRBTGT** mediante `secretsdump`, cumpliendo con el objetivo del *scope*.
+ShadowGate es una máquina **Facíl** que simula un entorno Active Directory recientemente consolidado tras una adquisición corporativa. El recorrido comienza con la enumeración de usuarios mediante RPC, seguida de un ataque **AS-REP Roasting** que permite obtener credenciales para el usuario `jtrueblood`. A partir de ahí, se explota una configuración insegura de Active Directory Certificate Services (AD CS) con **Certipy Shadow Credentials** para obtener el hash NT del usuario `bbrown`. Posteriormente, se utiliza **PetitPotam** para forzar una autenticación NTLM y realizar un **NTLM Relay** hacia AD CS, obteniendo un certificado del controlador de dominio. Finalmente, se extrae el hash NT del **KRBTGT** mediante `secretsdump`, cumpliendo con el objetivo del *scope*.
 
 
 
