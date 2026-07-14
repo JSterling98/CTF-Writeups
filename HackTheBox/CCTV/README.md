@@ -307,10 +307,10 @@ MotionEye v0.43.1b4 es vulnerable a **inyección de comandos** (**CVE-2025-60787
 Para poder acceder a la interfaz web de MotionEye desde nuestra máquina local, realizamos port forwarding:
 
 ```bash
-ssh -L 8765:127.0.0.1:8765 sa_mark@cctv.htb
+ssh -L 8000:127.0.0.1:8765 sa_mark@cctv.htb
 ```
 
-Ahora podemos acceder a `http://127.0.0.1:8765` desde nuestro navegador. Usamos las credenciales que obtuvimos de `sa_mark` (usuario `admin` y contraseña `X1l9fx1ZjS7RZb`). Logramos autenticarnos con **`admin:X1l9fx1ZjS7RZb`**.
+Ahora podemos acceder a `http://127.0.0.1:8000` desde nuestro navegador. Usamos las credenciales que obtuvimos de `sa_mark` (usuario `admin` y contraseña `X1l9fx1ZjS7RZb`). Logramos autenticarnos con **`admin:X1l9fx1ZjS7RZb`**.
 
 ### Explotación — Inyección de comandos
 
