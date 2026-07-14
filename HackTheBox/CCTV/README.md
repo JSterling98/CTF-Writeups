@@ -51,7 +51,7 @@ Investigando en Internet, encontramos que las versiones antiguas de ZoneMinder u
 
 ## Fase 3: SQL Injection en ZoneMinder (CVE-2024-51482)
 
-Investigando vulnerabilidades conocidas para ZoneMinder v1.37.63, encontramos que el endpoint `/zm/index.php?view=request&request=event&action=removetag&tid=1` es vulnerable a **inyección SQL**, identificada como **CVE-2024-51482**[reference:5][reference:6]. El parámetro `tid` se introduce directamente en una consulta SQL sin sanitizar. El PoC indica que la vulnerabilidad es de tipo **booleana**[reference:7], aunque en la práctica también se puede explotar como **time‑based blind**[reference:8].
+Investigando vulnerabilidades conocidas para ZoneMinder v1.37.63, encontramos que el endpoint `/zm/index.php?view=request&request=event&action=removetag&tid=1` es vulnerable a **inyección SQL**, identificada como **CVE-2024-51482**. El parámetro `tid` se introduce directamente en una consulta SQL sin sanitizar. El PoC indica que la vulnerabilidad es de tipo **booleana**, aunque en la práctica también se puede explotar como **time‑based blind**.
 
 ### Explotación con sqlmap
 
@@ -430,7 +430,7 @@ CCTV es una máquina **Fácil** que combina:
    ZoneMinder permitía el acceso con `admin:admin`. Cambiar las contraseñas predeterminadas inmediatamente después de la instalación es fundamental.
 
 2. **Las inyecciones SQL en aplicaciones legacy siguen siendo un vector efectivo**  
-   Aunque ZoneMinder es un proyecto activo, versiones antiguas (como la 1.37.63) contienen vulnerabilidades críticas como **CVE-2024-51482**[reference:9]. Mantener el software actualizado es esencial.
+   Aunque ZoneMinder es un proyecto activo, versiones antiguas (como la 1.37.63) contienen vulnerabilidades críticas como **CVE-2024-51482**. Mantener el software actualizado es esencial.
 3. **El análisis de logs puede revelar información sensible**  
    El archivo `server.log` indicaba la existencia de un usuario y comandos, lo que guió la enumeración.
 
