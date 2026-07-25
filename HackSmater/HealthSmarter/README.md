@@ -587,11 +587,3 @@ Health Smarter es una máquina **Media** que combina múltiples vulnerabilidades
 
 4. **Rate limiting es esencial para prevenir fuerza bruta**  
    La ausencia de limitación de intentos permitió probar 90.000 combinaciones de credenciales en minutos. Implementar CAPTCHA, bloqueo de IP o retardos exponenciales es fundamental.
-
-
-
-
-
----
-
-**Writeup completado.** La máquina fue resuelta exitosamente.
