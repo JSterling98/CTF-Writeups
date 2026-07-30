@@ -1,6 +1,6 @@
-# Writeup: Dark (HackSmarter — Medium)
+# Writeup: Dark (HackSmarter — Easy)
 
-Dark es una máquina **Media** que simula un entorno WordPress vulnerable. El recorrido comienza con la enumeración de un sitio WordPress que expone un usuario administrador a través de la API REST. Posteriormente, se identifica un plugin llamado **Modular Connector** con una vulnerabilidad crítica de escalada de privilegios (CVE-2026-23550) que permite obtener acceso al panel de administración sin autenticación. Una vez dentro, se sube un plugin malicioso para obtener una reverse shell como `www-data`. Tras enumerar el sistema, se descubren credenciales de la base de datos y se intenta crackear el hash del administrador sin éxito. Finalmente, se observa que el usuario `www-data` pertenece al grupo `docker`, lo que permite ejecutar un contenedor con montaje del sistema de archivos raíz y obtener acceso como `root`.
+Dark es una máquina **Facíl** que simula un entorno WordPress vulnerable. El recorrido comienza con la enumeración de un sitio WordPress que expone un usuario administrador a través de la API REST. Posteriormente, se identifica un plugin llamado **Modular Connector** con una vulnerabilidad crítica de escalada de privilegios (CVE-2026-23550) que permite obtener acceso al panel de administración sin autenticación. Una vez dentro, se sube un plugin malicioso para obtener una reverse shell como `www-data`. Tras enumerar el sistema, se descubren credenciales de la base de datos y se intenta crackear el hash del administrador sin éxito. Finalmente, se observa que el usuario `www-data` pertenece al grupo `docker`, lo que permite ejecutar un contenedor con montaje del sistema de archivos raíz y obtener acceso como `root`.
 
 ---
 
@@ -422,7 +422,3 @@ Dark es una máquina **Media** que combina:
 
 7. **Las contraseñas almacenadas en `wp-config.php` son un objetivo habitual**  
    Las credenciales de la base de datos estaban en texto plano en el archivo de configuración. Aunque no fueron útiles para la escalada en este caso, representan un riesgo de exposición de datos.
-
----
-
-**Writeup completado.** La máquina fue resuelta exitosamente.
