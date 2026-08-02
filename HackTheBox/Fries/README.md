@@ -6,6 +6,7 @@ Fries es una máquina **Hard** que combina un entorno Linux con contenedores Doc
 
 
 Se proporcionan credenciales iniciales para el usuario `d.cooper@fries.htb` con la contraseña `D4LE11maan!!`. 
+
 ---
 
 ## Fase 1: Reconocimiento
