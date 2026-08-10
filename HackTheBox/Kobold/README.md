@@ -447,44 +447,25 @@ Kobold es una máquina **Easy** que combina:
 
 ## 📚 Lecciones aprendidas:
 
-1. **La enumeración de subdominios amplía la superficie de ataque**
 
-   El certificado wildcard ayudó a identificar posibles hosts virtuales, pero los subdominios deben validarse mediante enumeración activa, pasiva y revisión de DNS.
+1. **La enumeración de subdominios es clave**  
+   El certificado wildcard (`*.kobold.htb`) ocultaba servicios críticos. Siempre se deben enumerar subdominios en entornos con certificados SSL, ya que pueden exponer aplicaciones adicionales que no son evidentes en el dominio principal.
 
-2. **Las credenciales por defecto deben eliminarse**
+2. **El LFI puede ser explotado incluso con limitaciones**  
+   Aunque CVE‑2025‑64714 añadía la extensión `.php` automáticamente, la combinación con la capacidad de crear archivos en el sistema (gracias a los permisos del grupo `operator`) permitió la ejecución de comandos. Esto demuestra que las vulnerabilidades aparentemente limitadas pueden ser explotadas si se combinan con otros vectores.
 
-   Arcane utilizaba credenciales conocidas, lo que permitió acceder a una interfaz de administración. Las credenciales iniciales deben cambiarse, almacenarse de forma segura y protegerse con MFA cuando sea posible.
+3. **Los contenedores Docker pueden ser un vector de escalada**  
+   Arcane permitió crear contenedores con montaje del sistema host (`-v /:/mnt`), lo que otorgó acceso root al sistema anfitrión. La gestión de contenedores debe estar restringida y autenticada adecuadamente, y los usuarios no deben tener permisos para montar directorios sensibles del host.
 
-3. **Una vulnerabilidad LFI puede combinarse con escritura de archivos**
+4. **La información en archivos de configuración puede ser sensible**  
+   Las credenciales de la base de datos estaban en texto plano en el archivo de configuración de PrivateBin (`/srv/cfg/conf.php`). Los secretos nunca deben almacenarse en archivos de configuración; deben usarse variables de entorno o servicios de gestión de secretos como AWS Secrets Manager o HashiCorp Vault.
 
-   El LFI de PrivateBin no ejecutaba comandos directamente. La ejecución fue posible porque el grupo `operator` podía escribir un archivo PHP dentro de una ruta que la aplicación podía incluir.
+5. **La escalada de privilegios puede ser no lineal**  
+   La cadena de ataque pasó de un contenedor (MCP Jam) a otro (PrivateBin) y finalmente al host (Arcane), demostrando que los contenedores no aíslan completamente si están mal configurados. El principio de mínimo privilegio y el aislamiento adecuado entre contenedores y el host son fundamentales.
 
-4. **Los permisos de archivos y grupos deben aplicarse con mínimo privilegio**
+6. **Las vulnerabilidades en servicios de desarrollo pueden tener impacto crítico**  
+   MCP Jam era una herramienta de desarrollo que no debería estar expuesta a la red, y su vulnerabilidad (CVE‑2026‑23744) permitió el compromiso inicial. Las herramientas de desarrollo nunca deben exponerse en entornos de producción sin controles de acceso estrictos.
 
-   El usuario `ben` pertenecía al grupo `operator`, que tenía escritura sobre `/privatebin-data/data`. Los directorios de aplicaciones no deberían ser escribibles por grupos amplios ni contener archivos que puedan ser interpretados como código.
+7. **La combinación de múltiples vulnerabilidades amplifica el impacto**  
+   Ninguna vulnerabilidad individual fue suficiente para obtener root; fue la combinación de RCE en MCP Jam, LFI en PrivateBin, permisos del grupo `operator` y credenciales por defecto en Arcane lo que permitió el compromiso total. La seguridad en profundidad es esencial para mitigar este tipo de cadenas de ataque.
 
-5. **Los archivos de configuración no deben contener secretos en texto plano**
-
-   El archivo `conf.php` exponía credenciales de MySQL. Deben utilizarse Secrets Manager, Vault u otro mecanismo seguro, además de rotar inmediatamente las credenciales cuando sean expuestas.
-
-6. **Los contenedores no deben recibir montajes arbitrarios del host**
-
-   Permitir que un usuario monte `/` dentro de un contenedor elimina gran parte del aislamiento y permite leer o modificar archivos del host. Las interfaces de gestión de contenedores deben restringir los bind mounts y protegerse con autenticación fuerte. [docs.docker](https://docs.docker.com/security/faqs/containers/)
-
-7. **La administración de Docker debe tratarse como acceso privilegiado**
-
-   Arcane podía crear contenedores con configuraciones peligrosas. El acceso a Docker, a su socket o a herramientas de gestión debe limitarse a administradores autorizados y auditarse.
-
-8. **La cadena demuestra la importancia de la defensa en profundidad**
-
-   El compromiso requirió encadenar varios fallos:
-
-   ```text
-   RCE en MCP Jam
-   → escritura en un directorio sensible
-   → LFI con ejecución de PHP
-   → credenciales expuestas
-   → Arcane con credenciales por defecto
-   → montaje de /
-   → acceso root
-   ```
