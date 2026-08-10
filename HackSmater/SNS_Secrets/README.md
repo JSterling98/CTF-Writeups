@@ -148,7 +148,7 @@ https://webhook.site/1100f0cb-a104-4545-97d7-26dfa420c52b
 Usamos el comando `aws sns subscribe` para suscribir nuestro webhook al tema:
 
 ```bash
-aws sns subscribe --topic-arn "$TOPIC_ARN" --protocol https --notification-endpoint https://webhook.site/1100f0cb-a104-4545-97d7-26dfa420c52b --return-subscription-arn
+aws sns subscribe --topic-arn "$TOPIC_ARN" --protocol https --notification-endpoint https://webhook.site/ID --return-subscription-arn
 ```
 
 ```json
