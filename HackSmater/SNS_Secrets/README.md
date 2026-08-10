@@ -385,6 +385,4 @@ SNS Secrets es una máquina **Easy** que combina:
 
    Las nuevas suscripciones, confirmaciones y eliminaciones deben registrarse y supervisarse mediante CloudTrail, EventBridge o alertas de seguridad.
 
-8. **Las APIs no deben devolver datos sensibles innecesarios**
 
-   El endpoint devolvió una contraseña, un correo y datos de usuario junto con la flag. Las respuestas deben limitarse a la información estrictamente necesaria y nunca incluir credenciales o secretos.
