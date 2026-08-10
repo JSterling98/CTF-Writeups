@@ -140,7 +140,7 @@ Para recibir los mensajes del tema, necesitamos un endpoint accesible desde inte
 Accedemos a [https://webhook.site](https://webhook.site) y obtenemos una URL única, por ejemplo:
 
 ```
-https://webhook.site/1100f0cb-a104-4545-97d7-26dfa420c52b
+https://webhook.site/ID
 ```
 
 ### 3.3 Creación de la suscripción
