@@ -18,7 +18,7 @@ La aplicación web es un portal de login estático. Al acceder a la URL, se mues
 
 ### 1.2 Análisis del código fuente
 
-Al inspeccionar el código fuente (`view-source`), encontramos una referencia a un bucket S3 público que aloja los recursos estáticos (imágenes, scripts, etc.):
+Al inspeccionar el código fuente, encontramos una referencia a un bucket S3 público que aloja los recursos estáticos (imágenes, scripts, etc.):
 
 ```html
 <script src="https://cg-assets-lab.s3.amazonaws.com/auth-module.js"></script>
