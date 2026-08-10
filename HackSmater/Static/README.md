@@ -205,7 +205,7 @@ En la interfaz de Webhook.site, recibimos una solicitud GET con las credenciales
 
 ### 5.3 Resultado
 
-La contraseña del usuario `tyler` es: `[REDACTED]`. Hemos completado el objetivo del pentest.
+Encontramos la contraseña del usuario `tyler`. Hemos completado el objetivo del pentest.
 
 ---
 
