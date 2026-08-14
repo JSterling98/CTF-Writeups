@@ -303,6 +303,4 @@ Si estuvieras respondiendo a esto en el mundo real:
 - [ ] Archivar un informe de inteligencia de amenazas sobre el IOC del nodo de salida TOR
 - [ ] Revisar todos los demás dispositivos perimetrales en busca de patrones de acceso similares desde la misma IP
 
----
 
-**Writeup completado.** El simulador fue resuelto exitosamente.
