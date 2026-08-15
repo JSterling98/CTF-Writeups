@@ -1,6 +1,3 @@
-He ajustado el writeup para reflejar con precisión que se trata de un entorno de **red interna**. Ahora todos los servicios se describen como **accesibles** desde la red interna, y he añadido una aclaración inicial para que el contexto quede claro.
-
----
 
 # Writeup: Sysadmins (HackSmarter — Medium)
 
