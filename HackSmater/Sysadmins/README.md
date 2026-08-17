@@ -177,11 +177,7 @@ PORT    STATE SERVICE VERSION
 161/udp open  snmp    net-snmp; net-snmp SNMPv3 server
 ```
 
-### 4.4 Ataque de diccionario cruzado contra SNMP
-
-**¿Qué es un ataque de diccionario cruzado?**
-
-En este ataque, el atacante utiliza dos listas: una de usuarios y otra de contraseñas. El objetivo es probar **todas las combinaciones posibles** entre ambas listas (usuario₁ + contraseña₁, usuario₁ + contraseña₂, ..., usuario₂ + contraseña₁, etc.). Esto se diferencia del **Password Spraying**, donde se prueba una o un conjunto pequeño de contraseñas comunes contra **muchos usuarios** (usuario₁ + contraseña₁, usuario₂ + contraseña₁, usuario₃ + contraseña₁, etc.), con el objetivo de evitar bloqueos por múltiples intentos fallidos en una misma cuenta.
+### 4.4 Ataque de diccionario contra SNMP
 
 En este caso, disponemos de una lista de nombres de usuarios (obtenida del sitio web) y una lista de contraseñas (extraída de Pastebin). Utilizamos `legba` para realizar el ataque de diccionario cruzado contra el servicio SNMPv3:
 
@@ -316,7 +312,7 @@ Sysadmins es una máquina **Media** que combina:
    Los atacantes utilizan plataformas públicas como Pastebin para compartir credenciales filtradas. Los equipos de seguridad deben monitorizar estas fuentes para detectar si sus credenciales han sido expuestas.
 
 4. **SNMP accesible en la red interna con credenciales filtradas es un peligro**  
-   El servicio SNMPv3 estaba disponible desde cualquier host de la red y las credenciales de `waserby` estaban en la filtración, lo que permitió acceder y enumerar procesos del sistema. SNMP debe estar restringido a direcciones IP específicas (solo servidores de monitorización) y sus credenciales deben ser rotadas periódicamente.
+   El servicio SNMPv3 estaba disponible desde cualquier host de la red y las credenciales de `waserby` estaban en la filtración, lo que permitió acceder y enumerar procesos del sistema. SNMP debe estar restringido a direcciones IP específicas y sus credenciales deben ser rotadas periódicamente.
 
 5. **Las credenciales hardcodeadas en tareas programadas son una vulnerabilidad grave**  
    La contraseña de `helena` estaba en texto plano en un comando de `cron` visible a través de SNMP. Nunca se deben almacenar credenciales en texto plano en scripts.
