@@ -2,7 +2,7 @@
 
 Este laboratorio simula una cadena de ataque real contra un firewall FortiGate expuesto. Un atacante utilizando una herramienta de fuerza bruta aumentada con IA ataca el panel de administración desde un nodo de salida TOR conocido (`185.220.101.42`), logra acceder, lee la configuración del dispositivo a través de la API de gestión, exfiltra la configuración completa y crea una cuenta de administrador persistente (`svc_backup`).
 
-Como analista de SOC, la tarea consiste en:
+Como un analista de SOC, la tarea consiste en:
 
 1. Triagear la cola de alertas en vivo
 2. Investigar el registro de evidencias
