@@ -538,7 +538,7 @@ No encontre informacion importante.
 
 Vamos al dominio `support.hsm-defense.local` y usamos las credenciales de `kelly.johnson`. **Funcionó.**
 
-![Dashboard de tickets de soporte](./assets/hsm-support-dashboard.png)
+![Dashboard de tickets de soporte](./hsm-support-dashboard.png)
 
 ### TICKET-2417: Machine account HELPDESK01$ password config reset
 
@@ -1332,11 +1332,11 @@ HSM Defense – IT Operations
 
 Iniciamos la aplicación y vemos que podemos ajustar el host y puerto objetivo.
 
-![Herramienta SSH](./assets/hsm-ssh-tool.png)
+![Herramienta SSH](./hsm-ssh-tool.png)
 
 Vemos que la conexión se realiza pero no se filtran credenciales.
 
-![Conexión SSH saliente](./assets/hsm-ssh-connection.png)
+![Conexión SSH saliente](./hsm-ssh-connection.png)
 
 En nuestra máquina Kali, iniciamos un listener en el puerto 22:
 
