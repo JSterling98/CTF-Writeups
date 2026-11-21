@@ -170,7 +170,7 @@ curl -G http://headache.nyx/api/search --data-urlencode 'query[$ne]=1' | jq
 
 **Análisis de la vulnerabilidad:**
 
-La aplicación construye una consulta a una base de datos MongoDB (o compatible) a partir del parámetro `query` sin validar su tipo. Al enviar `query[$ne]=1`, el servidor interpreta `query` como un objeto con el operador `$ne` (not equal). La consulta resultante es algo similar a `{"campo": {"$ne": 1}}`, que coincide con **todos los documentos** cuyo campo no sea igual a `1`. En lugar de filtrar, el endpoint devuelve la colección completa.
+La aplicación construye una consulta a una base de datos MongoDB a partir del parámetro `query` sin validar su tipo. Al enviar `query[$ne]=1`, el servidor interpreta `query` como un objeto con el operador `$ne` (not equal). La consulta resultante es algo similar a `{"campo": {"$ne": 1}}`, que coincide con **todos los documentos** cuyo campo no sea igual a `1`. En lugar de filtrar, el endpoint devuelve la colección completa.
 
 Esta es una **inyección NoSQL** clásica: el atacante controla no solo el valor sino la **estructura del operador**, lo que permite evadir filtros y extraer información no prevista. La causa raíz es la confianza en la entrada del usuario sin validar que `query` sea un string y sin sanear los operadores.
 
